@@ -30,8 +30,8 @@ RUN  \
   sudo -u jenkins wget https://aur.archlinux.org/cgit/aur.git/snapshot/cower.tar.gz ; \
   sudo -u jenkins tar -xzf cower.tar.gz ; \
   cd ./cower ; \
-  sudo -u jenkins makepkg -si --noconfirm --needed \
-  cd .. \
+  sudo -u jenkins makepkg -si --noconfirm --needed ; \
+  cd .. ; \
   sudo -u jenkins wget https://aur.archlinux.org/cgit/aur.git/snapshot/pacaur.tar.gz ; \
   sudo -u jenkins tar -xzf pacaur.tar.gz ; \
   cd ./pacaur ; \
