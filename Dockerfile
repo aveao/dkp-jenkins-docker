@@ -42,13 +42,10 @@ RUN  \
   cd ./trizen ; \
   sudo -u jenkins makepkg -si --noconfirm --needed
 
-# Install DKP packages. Hacky. From buildservnx 4's reinstall.sh
-RUN SWITCHLIBPACKAGES=$(pacman -Sl dkp-libs | grep 'switch' | awk '{print $2}' | tr '\n' ' ') ; \
-    NXLIBPACKAGES=$(pacman -Sl dkp-libs | grep 'nx' | awk '{print $2}' | tr '\n' ' ') ; \
-    DEVKITLIBS=$(pacman -Sl dkp-libs | grep 'devkit' | awk '{print $2}' | tr '\n' ' ') ; \
-    DEVKITLINUX=$(pacman -Sl dkp-linux | grep 'devkit' | grep -v "keyring" | awk '{print $2}' | tr '\n' ' ') ; \
-    SWITCHLINUXPACKAGES=$(pacman -Sl dkp-linux | grep 'switch' | awk '{print $2}' | tr '\n' ' ') ; \
-    pacman -Syu $SWITCHLINUXPACKAGES $SWITCHLIBPACKAGES $DEVKITLIBS $DEVKITLINUX $NXLIBPACKAGES general-tools --noconfirm
+# Install all devkitPro packages. Hacky. Based on buildservnx 4's reinstall.sh
+RUN DEVKITLIBS=$(pacman -Sl dkp-libs | awk '{print $2}' | tr '\n' ' ') ; \
+    DEVKITLINUX=$(pacman -Sl dkp-linux | grep -v "keyring" | awk '{print $2}' | tr '\n' ' ') ; \
+    pacman -Syu $DEVKITLIBS $DEVKITLINUX --noconfirm
 
 # Default command
 CMD ["echo", "No default cmd set!"]
