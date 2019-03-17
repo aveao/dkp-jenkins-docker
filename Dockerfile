@@ -1,5 +1,5 @@
-FROM nfnty/arch-mini:latest
-MAINTAINER Nils Bars <arch@nbars.de>
+FROM archlinux/base:latest
+MAINTAINER Ave O <fuckdocker@lasagna.dev>
 
 COPY pacman.conf /etc/pacman.conf
 
@@ -18,12 +18,12 @@ RUN pacman-key --init && pacman-key --populate archlinux \
 
 RUN useradd -m -d /home/jenkins -s /bin/bash jenkins \
     && echo "jenkins:jenkins" | chpasswd \
-    && groupadd sudo && gpasswd -a jenkins sudo
+    && groupadd wheel && gpasswd -a jenkins wheel
 
-#Enable sudo group
-RUN echo "%sudo ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+#Enable wheel group
+RUN echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
-#install cower and pacaur
+#install cower and trizen
 RUN  \
   sudo -u jenkins gpg --keyserver 'hkp://pgp.mit.edu'  --recv-keys 1EB2638FF56C0C53 ; \
   cd /tmp ; \
@@ -32,9 +32,9 @@ RUN  \
   cd ./cower ; \
   sudo -u jenkins makepkg -si --noconfirm --needed ; \
   cd .. ; \
-  sudo -u jenkins wget https://aur.archlinux.org/cgit/aur.git/snapshot/pacaur.tar.gz ; \
-  sudo -u jenkins tar -xzf pacaur.tar.gz ; \
-  cd ./pacaur ; \
+  sudo -u jenkins wget https://aur.archlinux.org/cgit/aur.git/snapshot/trizen.tar.gz ; \
+  sudo -u jenkins tar -xzf trizen.tar.gz ; \
+  cd ./trizen ; \
   sudo -u jenkins makepkg -si --noconfirm --needed
 
 # Default command
