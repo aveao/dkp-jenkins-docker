@@ -35,7 +35,10 @@ RUN  \
   sudo -u jenkins wget https://aur.archlinux.org/cgit/aur.git/snapshot/trizen.tar.gz ; \
   sudo -u jenkins tar -xzf trizen.tar.gz ; \
   cd ./trizen ; \
-  sudo -u jenkins makepkg -si --noconfirm --needed
+  sudo -u jenkins makepkg -si --noconfirm --needed ; \
+  cd .. ; \
+  sudo -u jenkins wget https://downloads.devkitpro.org/devkitpro-keyring-r1.787e015-2-any.pkg.tar.xz ; \
+  sudo -u jenkins pacman -U devkitpro-keyring-r1.787e015-2-any.pkg.tar.xz
 
 # Default command
 CMD ["echo", "No default cmd set!"]
