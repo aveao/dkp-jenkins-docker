@@ -13,8 +13,8 @@ RUN useradd -m -d /home/jenkins -s /bin/bash jenkins \
 RUN echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 # Install all devkitPro packages. Hacky. Based on buildservnx 4's reinstall.sh
-RUN DEVKITLIBS=$(pacman -Sl dkp-libs | awk '{print $2}' | tr '\n' ' ') ; \
-    DEVKITLINUX=$(pacman -Sl dkp-linux | grep -v "keyring" | awk '{print $2}' | tr '\n' ' ') ; \
+RUN DEVKITLIBS=$(dkp-pacman -Sl dkp-libs | awk '{print $2}' | tr '\n' ' ') ; \
+    DEVKITLINUX=$(dkp-pacman -Sl dkp-linux | grep -v "keyring" | awk '{print $2}' | tr '\n' ' ') ; \
     dkp-pacman -Syu $DEVKITLIBS $DEVKITLINUX --needed --noconfirm
 
 # Default command
