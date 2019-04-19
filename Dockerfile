@@ -3,7 +3,9 @@ MAINTAINER Ave O <fuckdocker@lasagna.dev>
 
 # Update system and install some packages
 RUN dkp-pacman -Syyu --noconfirm \
- && apt install git sudo tree openjdk-8-jdk-headless -y
+ && apt update \
+ && apt upgrade \
+ && apt install zip git sudo tree openjdk-8-jdk-headless -y
 
 RUN useradd -m -d /home/jenkins -s /bin/bash jenkins \
     && echo "jenkins:jenkins" | chpasswd \
